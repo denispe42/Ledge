@@ -52,6 +52,12 @@ enum L10n {
     static var minutesUnit: String { tr("min") }
     static var always: String { tr("Always") }
     static var untilTime: String { tr("until %@") }
+    static var language: String { tr("Language") }
+    static var sameAsSystem: String { tr("Same as system") }
+    static var languageRestartNote: String { tr("Ledge restarts to apply the language.") }
+    static var islandLook: String { tr("Island look") }
+    static var lookGlass: String { tr("Glass") }
+    static var lookBlack: String { tr("Black") }
     static var exit: String { tr("Exit") }
     static var monitor: String { tr("Monitor") }
     static var cpu: String { tr("CPU") }

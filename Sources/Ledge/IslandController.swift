@@ -33,6 +33,9 @@ final class IslandController {
         self.modules = modules
     }
 
+    /// Menu shown on a right click on the closed island (the same as the menu-bar icon's).
+    func setContextMenu(_ menu: NSMenu) { pill.pillView.menu = menu }
+
     func start() {
         registry.addObserver { [weak self] in
             self?.refreshTiles()

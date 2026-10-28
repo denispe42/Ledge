@@ -139,6 +139,21 @@ final class IslandView: NSView {
         glassBackdrop.frame = bounds
         glassBackdrop.autoresizingMask = [.width, .height]
         addSubview(glassBackdrop)
+        applyLook()
+        NotificationCenter.default.addObserver(forName: IslandLookSetting.changed, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.applyLook() }
+        }
+    }
+
+    /// Black look: an opaque black layer over the glass (so it melts into the notch), and everything drawn as on a
+    /// dark surface (white ink). Glass look: the layer is clear again and the system appearance applies.
+    private func applyLook() {
+        let look = IslandLookSetting.current
+        content.wantsLayer = true
+        content.layer?.cornerRadius = Self.glassRadius
+        content.layer?.masksToBounds = true
+        content.layer?.backgroundColor = look == .black ? NSColor.black.cgColor : NSColor.clear.cgColor
+        appearance = look.forcesDarkAppearance ? NSAppearance(named: .darkAqua) : nil
     }
 
     @available(*, unavailable) required init?(coder: NSCoder) { fatalError() }

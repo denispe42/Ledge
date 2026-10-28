@@ -73,3 +73,9 @@
 "until %@" = "%@まで";
 "h" = "時間";
 "min" = "分";
+"Language" = "言語";
+"Same as system" = "システムと同じ";
+"Ledge restarts to apply the language." = "言語を適用するため、Ledgeは再起動します。";
+"Island look" = "アイランドの外観";
+"Glass" = "ガラス";
+"Black" = "ブラック";

@@ -73,3 +73,9 @@
 "until %@" = "do %@";
 "h" = "h";
 "min" = "min";
+"Language" = "Jazyk";
+"Same as system" = "Podle systému";
+"Ledge restarts to apply the language." = "Ledge se restartuje, aby se jazyk použil.";
+"Island look" = "Vzhled ostrova";
+"Glass" = "Sklo";
+"Black" = "Černý";

@@ -73,3 +73,9 @@
 "until %@" = "do %@";
 "h" = "godz.";
 "min" = "min";
+"Language" = "Język";
+"Same as system" = "Jak w systemie";
+"Ledge restarts to apply the language." = "Ledge uruchomi się ponownie, aby zastosować język.";
+"Island look" = "Wygląd wyspy";
+"Glass" = "Szkło";
+"Black" = "Czarny";

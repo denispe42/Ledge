@@ -45,6 +45,17 @@ final class SettingsModel: ObservableObject {
 
     func previewSound() { Chime.shared.play(named: TimerSettings.soundName, times: 1) }
 
+    /// The language picked in the app ("" for the system's), applied by restarting the app.
+    var language: String {
+        get { AppLanguageSetting.choice ?? "" }
+        set { AppLanguageSetting.choose(newValue.isEmpty ? nil : newValue) }
+    }
+
+    var look: String {
+        get { IslandLookSetting.current.rawValue }
+        set { IslandLookSetting.current = IslandLook.stored(newValue); objectWillChange.send() }
+    }
+
     var haptics: Bool {
         get { Haptics.isEnabled }
         set { Haptics.isEnabled = newValue; objectWillChange.send() }
@@ -77,10 +88,20 @@ private struct SettingsView: View {
                 Toggle(L10n.hideTimeInFullscreen,
                        isOn: Binding(get: { model.hideTimeInFullscreen }, set: { model.hideTimeInFullscreen = $0 }))
                 Toggle(L10n.haptics, isOn: Binding(get: { model.haptics }, set: { model.haptics = $0 }))
+                Picker(L10n.islandLook, selection: Binding(get: { model.look }, set: { model.look = $0 })) {
+                    Text(L10n.lookGlass).tag(IslandLook.glass.rawValue)
+                    Text(L10n.lookBlack).tag(IslandLook.black.rawValue)
+                }
+                Picker(L10n.language, selection: Binding(get: { model.language }, set: { model.language = $0 })) {
+                    Text(L10n.sameAsSystem).tag("")
+                    Divider()
+                    ForEach(AppLanguage.all, id: \.code) { Text($0.nativeName).tag($0.code) }
+                }
+                Text(L10n.languageRestartNote).font(.caption).foregroundStyle(.secondary)
             }
         }
         .formStyle(.grouped)
-        .frame(width: 400, height: 440)
+        .frame(width: 400, height: 540)
     }
 }
 

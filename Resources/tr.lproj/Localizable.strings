@@ -73,3 +73,9 @@
 "until %@" = "%@ saatine kadar";
 "h" = "sa";
 "min" = "dk";
+"Language" = "Dil";
+"Same as system" = "Sistemle aynı";
+"Ledge restarts to apply the language." = "Dili uygulamak için Ledge yeniden başlar.";
+"Island look" = "Ada görünümü";
+"Glass" = "Cam";
+"Black" = "Siyah";

@@ -73,3 +73,9 @@
 "until %@" = "bis %@";
 "h" = "Std";
 "min" = "Min";
+"Language" = "Sprache";
+"Same as system" = "Wie das System";
+"Ledge restarts to apply the language." = "Ledge startet neu, um die Sprache zu übernehmen.";
+"Island look" = "Aussehen der Insel";
+"Glass" = "Glas";
+"Black" = "Schwarz";

@@ -14,7 +14,7 @@
 
 ## Install
 
-1. Download **`Ledge-0.1.0.dmg`** from the [Releases](../../releases) page.
+1. Download **`Ledge-0.2.0.dmg`** from the [Releases](../../releases) page.
 2. Open it and drag **Ledge** into **Applications**.
 3. **First launch (needed once per downloaded version).** Ledge is not notarized by Apple (that needs a paid developer account), so macOS blocks it the first time:
    - Double-click Ledge. macOS says it cannot verify the app. Click **Done**.
@@ -22,7 +22,7 @@
    - Or do the same from Terminal: `xattr -dr com.apple.quarantine /Applications/Ledge.app`
 4. Click the notch. That is it.
 
-There is no Dock icon. A small **Ledge** icon in the menu bar opens **Settings** and **Quit**.
+There is no Dock icon. A small smiley icon in the menu bar (or a right click on the notch) opens **Settings** and **Quit**.
 
 ## Permissions
 
@@ -95,7 +95,12 @@ Press the **⇔** button in the top-left corner to rearrange.
 - **Put one away:** drag it out of the frame. The frame and the tile turn red; let go and the tile disappears from the home screen (the feature keeps working). You can put away **up to five**.
 - **Bring back:** a **+** button appears under ⇔ when something is put away. It opens a page with the put-away tiles: press one to bring it back, or **Bring back all**.
 - **Switch a feature off completely:** *Settings → Modules*. A switched-off module creates nothing and observes nothing.
-- **Settings** (menu bar icon): modules on/off, trackpad haptics, timer sound (with a test button), hiding the time beside the notch in full screen.
+- **Look:** *Settings → General → Island look*: **Glass** (the system's Liquid Glass, default) or **Black** (solid black that melts into the notch). Applied at once.
+
+![The black look](media/11-black-look.png)
+
+- **Language:** *Settings → General → Language*: **Same as system** (default, follows the system language even when you change it) or any of the 14 languages. The app restarts to apply your choice.
+- **Settings** (the smiley icon in the menu bar, or a right click on the notch): modules on/off, trackpad haptics, island look, language, timer sound (with a test button), hiding the time beside the notch in full screen.
 
 ## Things that can bite you (read this)
 
@@ -132,7 +137,7 @@ You need Xcode with the **macOS 27 SDK** (the glass material API is used behind 
 git clone https://github.com/denispe42/Ledge.git && cd Ledge
 tools/run-tests.sh          # lint + build + unit tests
 tools/build.sh              # universal (arm64 + x86_64) dist/Ledge.app
-VERSION=0.1.0 tools/build.sh --dmg   # also dist/Ledge-0.1.0.dmg
+VERSION=0.2.0 tools/build.sh --dmg   # also dist/Ledge-0.2.0.dmg
 open dist/Ledge.app
 ```
 
@@ -140,7 +145,7 @@ Swift Package Manager only, no Xcode project, no external dependencies. See the 
 
 ## Languages
 
-English, Russian, German, French, Spanish, Italian, Portuguese (Brazil), Polish, Czech, Ukrainian, Turkish, Japanese, Korean, Simplified Chinese. The language follows the system. **The translations were produced by an AI and have not been checked by native speakers**; corrections are very welcome as pull requests to `Resources/<language>.lproj/Localizable.strings` (a unit test keeps every language in step with English, including `%d` / `%@` placeholders).
+English, Russian, German, French, Spanish, Italian, Portuguese (Brazil), Polish, Czech, Ukrainian, Turkish, Japanese, Korean, Simplified Chinese. The language follows the system unless you pick another one in Settings. **The translations were produced by an AI and have not been checked by native speakers**; corrections are very welcome as pull requests to `Resources/<language>.lproj/Localizable.strings` (a unit test keeps every language in step with English, including `%d` / `%@` placeholders).
 
 ## License
 

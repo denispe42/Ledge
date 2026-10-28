@@ -13,6 +13,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         island.start()
         registry.startEnabled()
         statusItem = StatusItemController { [weak self] in self?.settings.show() }
+        if let menu = statusItem?.menu { island.setContextMenu(menu) }
     }
 
     func applicationWillTerminate(_ notification: Notification) {

@@ -73,3 +73,9 @@
 "until %@" = "%@까지";
 "h" = "시간";
 "min" = "분";
+"Language" = "언어";
+"Same as system" = "시스템과 동일";
+"Ledge restarts to apply the language." = "언어를 적용하려면 Ledge가 다시 시작됩니다.";
+"Island look" = "아일랜드 모양";
+"Glass" = "유리";
+"Black" = "검정";

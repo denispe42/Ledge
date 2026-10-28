@@ -73,3 +73,9 @@
 "until %@" = "до %@";
 "h" = "год";
 "min" = "хв";
+"Language" = "Мова";
+"Same as system" = "Як у системі";
+"Ledge restarts to apply the language." = "Ledge перезапуститься, щоб застосувати мову.";
+"Island look" = "Вигляд острова";
+"Glass" = "Скло";
+"Black" = "Чорний";

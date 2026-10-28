@@ -73,3 +73,9 @@
 "until %@" = "直到 %@";
 "h" = "小时";
 "min" = "分钟";
+"Language" = "语言";
+"Same as system" = "跟随系统";
+"Ledge restarts to apply the language." = "Ledge 将重新启动以应用语言。";
+"Island look" = "岛的外观";
+"Glass" = "玻璃";
+"Black" = "黑色";
