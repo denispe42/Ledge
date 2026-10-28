@@ -14,7 +14,7 @@
 
 ## Install
 
-1. Download **`Ledge-0.2.0.dmg`** from the [Releases](../../releases) page.
+1. Download **`Ledge-0.3.0.dmg`** from the [Releases](../../releases) page.
 2. Open it and drag **Ledge** into **Applications**.
 3. **First launch (needed once per downloaded version).** Ledge is not notarized by Apple (that needs a paid developer account), so macOS blocks it the first time:
    - Double-click Ledge. macOS says it cannot verify the app. Click **Done**.
@@ -100,7 +100,8 @@ Press the **⇔** button in the top-left corner to rearrange.
 ![The black look](media/11-black-look.png)
 
 - **Language:** *Settings → General → Language*: **Same as system** (default, follows the system language even when you change it) or any of the 14 languages. The app restarts to apply your choice.
-- **Settings** (the smiley icon in the menu bar, or a right click on the notch): modules on/off, trackpad haptics, island look, language, timer sound (with a test button), hiding the time beside the notch in full screen.
+- **Open at login** is **on by default** (switch it off in *Settings → General*, or in *System Settings → General → Login Items*).
+- **Settings** (the smiley icon in the menu bar, or a right click on the notch; the window closes by itself when you click elsewhere): modules on/off, open at login, trackpad haptics, island look, language, timer sound (with a test button), hiding the time beside the notch in full screen.
 
 ## Things that can bite you (read this)
 
@@ -137,7 +138,7 @@ You need Xcode with the **macOS 27 SDK** (the glass material API is used behind 
 git clone https://github.com/denispe42/Ledge.git && cd Ledge
 tools/run-tests.sh          # lint + build + unit tests
 tools/build.sh              # universal (arm64 + x86_64) dist/Ledge.app
-VERSION=0.2.0 tools/build.sh --dmg   # also dist/Ledge-0.2.0.dmg
+VERSION=0.3.0 tools/build.sh --dmg   # also dist/Ledge-0.3.0.dmg
 open dist/Ledge.app
 ```
 

@@ -51,6 +51,11 @@ final class SettingsModel: ObservableObject {
         set { AppLanguageSetting.choose(newValue.isEmpty ? nil : newValue) }
     }
 
+    var launchAtLogin: Bool {
+        get { LaunchAtLoginSetting.isOn }
+        set { LaunchAtLoginSetting.set(newValue); objectWillChange.send() }
+    }
+
     var look: String {
         get { IslandLookSetting.current.rawValue }
         set { IslandLookSetting.current = IslandLook.stored(newValue); objectWillChange.send() }
@@ -87,6 +92,7 @@ private struct SettingsView: View {
             Section(L10n.general) {
                 Toggle(L10n.hideTimeInFullscreen,
                        isOn: Binding(get: { model.hideTimeInFullscreen }, set: { model.hideTimeInFullscreen = $0 }))
+                Toggle(L10n.launchAtLogin, isOn: Binding(get: { model.launchAtLogin }, set: { model.launchAtLogin = $0 }))
                 Toggle(L10n.haptics, isOn: Binding(get: { model.haptics }, set: { model.haptics = $0 }))
                 Picker(L10n.islandLook, selection: Binding(get: { model.look }, set: { model.look = $0 })) {
                     Text(L10n.lookGlass).tag(IslandLook.glass.rawValue)
@@ -101,7 +107,7 @@ private struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 400, height: 540)
+        .frame(width: 400, height: 580)
     }
 }
 
@@ -120,6 +126,11 @@ final class SettingsWindowController {
             w.isReleasedWhenClosed = false
             w.center()
             window = w
+            // The app has no Dock icon, and the menu-bar icon opens Settings again, so the window simply goes away
+            // when the user clicks anywhere else (another app, the island, a file panel).
+            NotificationCenter.default.addObserver(forName: NSWindow.didResignKeyNotification, object: w, queue: .main) { [weak w] _ in
+                MainActor.assumeIsolated { w?.orderOut(nil) }
+            }
         }
         NSApp.activate(ignoringOtherApps: true)
         window?.makeKeyAndOrderFront(nil)

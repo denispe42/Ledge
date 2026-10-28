@@ -10,6 +10,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: StatusItemController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        LaunchAtLoginSetting.applyDefaultOnFirstRun()
         island.start()
         registry.startEnabled()
         statusItem = StatusItemController { [weak self] in self?.settings.show() }

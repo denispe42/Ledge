@@ -58,6 +58,7 @@ enum L10n {
     static var islandLook: String { tr("Island look") }
     static var lookGlass: String { tr("Glass") }
     static var lookBlack: String { tr("Black") }
+    static var launchAtLogin: String { tr("Open at login") }
     static var exit: String { tr("Exit") }
     static var monitor: String { tr("Monitor") }
     static var cpu: String { tr("CPU") }

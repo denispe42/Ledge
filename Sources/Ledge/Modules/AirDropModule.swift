@@ -76,7 +76,9 @@ final class AirDropModule: UIModule {
             forName: NSApplication.didResignActiveNotification, object: nil, queue: .main) { [weak panel] _ in
             MainActor.assumeIsolated { panel?.cancel(nil) }
         }
-        NSApp.activate(ignoringOtherApps: true)
+        // Activate the app without raising all its windows: `NSApp.activate(ignoringOtherApps:)` would also bring an open
+        // Settings window over the other apps. The key window (this island) comes forward, nothing else.
+        NSRunningApplication.current.activate(options: [])
         panel.begin { [weak self] response in
             guard let self else { return }
             self.endChoosing()
