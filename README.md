@@ -4,6 +4,22 @@
 
 [English](README.md) · [Русский](README.ru.md)
 
+## Why Ledge exists
+
+Notch "islands" already exist, and there are plenty of them. Most try to turn the notch into a second Dynamic Island: now-playing widgets with artwork and visualizers, custom notification banners, HUD replacements, clipboard managers, calendars. Ledge deliberately goes the other way.
+
+**It is for people who already have a favourite standalone app for each job** (a clipboard manager, an audio mixer, a launcher) and do not want one app to swallow them all. Ledge does not try to replace those. It adds a small set of utilities that a separate app would be overkill for, and keeps out of the way the rest of the time.
+
+The design follows a few deliberate decisions:
+
+- **No media player.** Track artwork and animated now-playing visuals in the notch are a constant distraction. Playback is already covered by the system's own player and the keyboard media keys, so Ledge leaves music alone.
+- **No notification layer of its own.** Ledge does not draw banners or HUDs, so it cannot clash with the system's notifications. The only thing it ever posts is a standard system notification when a timer finishes.
+- **Quiet by default.** The island is closed until you click the notch or swipe down over it. Hovering only gives a light haptic tick. Nothing animates for its own sake.
+- **Built around the hardware.** It is made for the notch and follows the visual language of macOS 27 and Liquid Glass: a glass panel that grows out of the notch, with strictly black-and-white icons and text and no colour accents.
+- **Small, native and offline.** Public Apple APIs only, no third-party dependencies, no network access, event-driven rather than polling. Every tool is an independent module with its own on/off switch, and a switched-off module holds no objects or observers. A failure in one disables only that module.
+
+In short: a minimal, predictable island for one person's workflow, shared in case it fits yours.
+
 ![Ledge opening and hovering over its tiles](media/hero.gif)
 
 > **Notched MacBooks only.** On a Mac without a notch the island stays hidden. Ledge is developed and tested on **macOS 27**. It is built for macOS 13 and newer and falls back to a blur material before the glass look exists, but **versions older than 27 are untested**.
