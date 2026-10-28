@@ -1,4 +1,5 @@
 import AppKit
+import LedgeCore
 
 /// The collapsed island: a black shape that merges with the notch, with the clocks of pinned modules on the strips
 /// beside it. It is its own window (see PillPanel), so closing the opened island can cross-fade into it with no gap.
@@ -8,6 +9,8 @@ final class PillView: NSView {
 
     var onPointerEntered: (() -> Void)?
     var onClicked: (() -> Void)?
+    /// A two-finger swipe down over the closed island opens it, like a click.
+    var onSwipedDown: (() -> Void)?
     /// Files are dragged over the closed island: it opens so they can be dropped on the shelf.
     var onFilesDragEntered: (() -> Void)?
     var onFilesDropped: (([URL]) -> Void)?
@@ -17,6 +20,7 @@ final class PillView: NSView {
     private let rightLabel = NSTextField(labelWithString: "")
     private var leftEar: CGFloat = 0
     private var rightEar: CGFloat = 0
+    private var swipe = VerticalSwipe()
 
     override init(frame: NSRect) {
         super.init(frame: frame)
@@ -86,5 +90,8 @@ final class PillView: NSView {
 
     override func mouseEntered(with event: NSEvent) { onPointerEntered?() }
     override func mouseDown(with event: NSEvent) { onClicked?() }
+    override func scrollWheel(with event: NSEvent) {
+        if swipe.feed(event) == .down { onSwipedDown?() }
+    }
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
 }

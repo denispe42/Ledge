@@ -53,6 +53,9 @@ final class IslandView: NSView {
     private var homePage = 0
     private var swipe = ScrollAccumulator()
     private var swipeSpent = false
+    private var verticalSwipe = VerticalSwipe()
+    /// A two-finger swipe up that no page used for scrolling asks the island to close.
+    var onSwipedUp: (() -> Void)?
 
     override init(frame: NSRect) {
         super.init(frame: frame)
@@ -404,6 +407,10 @@ final class IslandView: NSView {
 
     /// A two-finger swipe to the left shows the next page, to the right the previous one: one page per swipe.
     override func scrollWheel(with event: NSEvent) {
+        if verticalSwipe.feed(event) == .up {
+            onSwipedUp?()
+            return
+        }
         guard pageHost.isHidden, HomePaging.pageCount(tiles: displayIDs.count) > 1 else { return super.scrollWheel(with: event) }
         // A new gesture (or a device without gesture phases, like a wheel) starts counting again.
         if event.phase == .began || event.phase == .mayBegin || (event.phase.isEmpty && event.momentumPhase.isEmpty) {

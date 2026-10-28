@@ -14,7 +14,7 @@
 
 ## Install
 
-1. Download **`Ledge-0.3.0.dmg`** from the [Releases](../../releases) page.
+1. Download **`Ledge-0.4.0.dmg`** from the [Releases](../../releases) page.
 2. Open it and drag **Ledge** into **Applications**.
 3. **First launch (needed once per downloaded version).** Ledge is not notarized by Apple (that needs a paid developer account), so macOS blocks it the first time:
    - Double-click Ledge. macOS says it cannot verify the app. Click **Done**.
@@ -38,7 +38,7 @@ Nothing else. No network access at all, see [How it works](#how-it-works).
 
 ## Using it
 
-- **Open:** click the notch (hovering alone does not open it, it only gives a light trackpad tick). **Close:** move the pointer away. Clicks on the island itself never close it, so you cannot lose it by mistake.
+- **Open:** click the notch (hovering alone does not open it, it only gives a light trackpad tick). or swipe **down with two fingers** over it. **Close:** move the pointer away, or swipe **up with two fingers**. Clicks on the island itself never close it, so you cannot lose it by mistake.
 - **Hover a tile:** it swells slightly, the trackpad ticks, and a line under the grid names the tile and shows its state (for example *Timer · 5:00*).
 - **Click a tile:** switches a feature on or off, or opens its page. Use the **‹** button to come back.
 - **Drag files to the notch:** the island opens by itself on a *drop screen* with two zones, **Shelf** and **AirDrop**. Drop on a zone. (Drop a little below the very top edge; see the Mission Control note below.)
@@ -138,7 +138,7 @@ You need Xcode with the **macOS 27 SDK** (the glass material API is used behind 
 git clone https://github.com/denispe42/Ledge.git && cd Ledge
 tools/run-tests.sh          # lint + build + unit tests
 tools/build.sh              # universal (arm64 + x86_64) dist/Ledge.app
-VERSION=0.3.0 tools/build.sh --dmg   # also dist/Ledge-0.3.0.dmg
+VERSION=0.4.0 tools/build.sh --dmg   # also dist/Ledge-0.4.0.dmg
 open dist/Ledge.app
 ```
 

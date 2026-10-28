@@ -64,6 +64,8 @@ final class IslandController {
         panel.islandView.onPointerEntered = { [weak self] in self?.hold.pointerEntered() }
         pill.pillView.onPointerEntered = { [weak self] in self?.pointerEntered() }
         pill.pillView.onClicked = { [weak self] in self?.send(.clicked) }
+        pill.pillView.onSwipedDown = { [weak self] in self?.send(.clicked) }
+        panel.islandView.onSwipedUp = { [weak self] in self?.swipedUp() }
         panel.islandView.onPointerExited = { [weak self] in self?.pointerExited() }
         // Event-driven: display plug/unplug, resolution change, wake, menu-bar auto-hide change.
         NotificationCenter.default.addObserver(
@@ -202,6 +204,12 @@ final class IslandController {
     /// Resizing the panel can report an exit while the pointer is still over it, so close only if it is really outside.
     private func pointerExited() {
         guard !panel.frame.contains(NSEvent.mouseLocation), hold.pointerLeft() else { return }
+        send(.pointerLeft)
+    }
+
+    /// Like the pointer leaving, a swipe up respects a hold (a module's system window is up).
+    private func swipedUp() {
+        guard hold.pointerLeft() else { return }
         send(.pointerLeft)
     }
 
