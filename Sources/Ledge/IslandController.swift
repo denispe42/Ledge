@@ -234,7 +234,9 @@ final class IslandController {
         panel.alphaValue = 0
         panel.setFrame(Self.scaled(final, by: reduceMotion ? 1 : openingScale), display: true)
         panel.orderFrontRegardless()
-        panel.makeKey()
+        // Not over a full-screen app: becoming key there moves the opened island to another desktop (see KeyWindowPolicy).
+        fullscreenWatcher.evaluate()
+        if KeyWindowPolicy.opensAsKey(frontAppIsFullscreen: fullscreenWatcher.isFullscreen) { panel.makeKey() }
         NSAnimationContext.runAnimationGroup { context in
             context.duration = reduceMotion ? 0.05 : openDuration
             context.timingFunction = CAMediaTimingFunction(name: .easeOut)
