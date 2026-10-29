@@ -30,7 +30,7 @@ In short: a minimal, predictable island for one person's workflow, shared in cas
 
 ## Install
 
-1. Download **`Ledge-0.4.0.dmg`** from the [Releases](../../releases) page.
+1. Download **`Ledge-0.5.0.dmg`** from the [Releases](../../releases) page.
 2. Open it and drag **Ledge** into **Applications**.
 3. **First launch (needed once per downloaded version).** Ledge is not notarized by Apple (that needs a paid developer account), so macOS blocks it the first time:
    - Double-click Ledge. macOS says it cannot verify the app. Click **Done**.
@@ -83,7 +83,7 @@ The timer has scrollable wheels (hours, minutes, seconds), a choice of system so
 ![Timer](media/04-timer.png)
 
 ### Shelf
-A temporary stop for files. Drag files onto the notch; they appear on the shelf as icons. The shelf stores **references, not copies**, so nothing is duplicated and a moved file is still found. Click to open, drag out to drop anywhere, right-click for *Show in Finder* or *Remove from shelf*. The check-mark button lets you select several files and drag or remove them as a batch.
+A temporary stop for files. Drag files onto the notch; they appear on the shelf as icons. The shelf stores **references, not copies**, so nothing is duplicated and a moved file is still found. Click to open, drag out to drop anywhere, right-click for *Show in Finder* or *Remove from shelf*. The check-mark button lets you select several files and drag or remove them as a batch. Files you delete or move to the Trash disappear from the shelf by themselves, and (a setting, on by default) a file leaves the shelf once you have dragged it out and dropped it somewhere.
 
 ![Shelf](media/06-shelf.png)
 
@@ -154,7 +154,7 @@ You need Xcode with the **macOS 27 SDK** (the glass material API is used behind 
 git clone https://github.com/denispe42/Ledge.git && cd Ledge
 tools/run-tests.sh          # lint + build + unit tests
 tools/build.sh              # universal (arm64 + x86_64) dist/Ledge.app
-VERSION=0.4.0 tools/build.sh --dmg   # also dist/Ledge-0.4.0.dmg
+VERSION=0.5.0 tools/build.sh --dmg   # also dist/Ledge-0.5.0.dmg
 open dist/Ledge.app
 ```
 
