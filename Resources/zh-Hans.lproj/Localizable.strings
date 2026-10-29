@@ -80,3 +80,4 @@
 "Glass" = "玻璃";
 "Black" = "黑色";
 "Open at login" = "登录时打开";
+"Remove files from the shelf after dragging them out" = "拖出文件后将其从文件架移除";

@@ -26,6 +26,7 @@ final class ShelfModule: UIModule {
     func start() throws {
         shelf = store.load()
         resolveAll()
+        dropGoneFiles()
     }
 
     func stop() {
@@ -37,6 +38,7 @@ final class ShelfModule: UIModule {
 
     /// Choosing several files ends when the island closes.
     func islandVisibilityChanged(_ open: Bool) {
+        if open { refreshFromDisk() }
         guard !open, selection.isActive else { return }
         selection.end()
         refresh()
@@ -57,7 +59,7 @@ final class ShelfModule: UIModule {
             toggleAll: { [weak self] in self?.toggleAll() },
             removeSelected: { [weak self] in self?.removeSelected() })
         self.page = page
-        refresh()
+        refreshFromDisk()
         return page
     }
 
@@ -81,6 +83,35 @@ final class ShelfModule: UIModule {
             locations[item.id] = found.url
             if let fresh = found.refreshed { shelf.update(id: item.id, bookmark: fresh, name: found.url.lastPathComponent) }
         }
+    }
+
+    /// Files deleted (or put in the Trash) since the shelf last looked leave the shelf. Runs when the island opens.
+    private func dropGoneFiles() {
+        let gone = Set(shelf.items.filter { item in
+            ShelfFile.isGone(path: locations[item.id]?.path, exists: locations[item.id] != nil)
+        }.map(\.id))
+        guard !gone.isEmpty else { return }
+        shelf.remove(ids: gone)
+        gone.forEach { locations[$0] = nil }
+        selection.prune(keeping: shelf.items.map(\.id))
+        if shelf.items.isEmpty { selection.end() }
+        save()
+    }
+
+    private func refreshFromDisk() {
+        resolveAll()
+        dropGoneFiles()
+        save()
+        refresh()
+    }
+
+    /// The dragged file(s) landed somewhere: take them off the shelf if the user wants that.
+    private func draggedOut(_ id: UUID) {
+        guard ShelfSettings.removeAfterDrag else { return }
+        let ids = selection.isActive && selection.contains(id) ? selection.ids : [id]
+        shelf.remove(ids: ids)
+        ids.forEach { locations[$0] = nil }
+        afterRemoval()
     }
 
     private func open(_ id: UUID) {
@@ -152,7 +183,8 @@ final class ShelfModule: UIModule {
                                 toggle: { [weak self] in self?.toggle(item.id) },
                                 open: { [weak self] in self?.open(item.id) },
                                 reveal: { [weak self] in self?.reveal(item.id) },
-                                remove: { [weak self] in self?.remove(item.id) })
+                                remove: { [weak self] in self?.remove(item.id) },
+                                dragEnded: { [weak self] in self?.draggedOut(item.id) })
         }, selecting: selection.isActive, selectedCount: selection.count, allSelected: selection.allSelected(of: all))
     }
 

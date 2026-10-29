@@ -129,3 +129,11 @@ private func tempFile() -> URL {
     s.begin()
     #expect(!s.allSelected(of: []))
 }
+
+@Test func aFileIsGoneWhenMissingOrInTheTrash() {
+    #expect(ShelfFile.isGone(path: nil, exists: false))
+    #expect(ShelfFile.isGone(path: "/Users/a/doc.txt", exists: false))
+    #expect(ShelfFile.isGone(path: "/Users/a/.Trash/doc.txt", exists: true))
+    #expect(ShelfFile.isGone(path: "/Volumes/X/.Trashes/501/doc.txt", exists: true) == false)
+    #expect(!ShelfFile.isGone(path: "/Users/a/doc.txt", exists: true))
+}

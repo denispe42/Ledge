@@ -80,3 +80,4 @@
 "Glass" = "ガラス";
 "Black" = "ブラック";
 "Open at login" = "ログイン時に開く";
+"Remove files from the shelf after dragging them out" = "ドラッグして取り出したファイルをシェルフから削除";

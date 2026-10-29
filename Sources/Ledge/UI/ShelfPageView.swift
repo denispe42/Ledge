@@ -12,14 +12,16 @@ final class ShelfItemView: NSView, NSDraggingSource {
     private let onOpen: () -> Void
     private let onReveal: () -> Void
     private let onRemove: () -> Void
+    private let onDragEnded: () -> Void
     private let iconView = NSImageView()
     private var pressPoint: NSPoint?
     private var dragging = false
 
     init(name: String, url: URL?, isSelecting: Bool, isSelected: Bool, dragURLs: @escaping () -> [URL],
          onToggle: @escaping () -> Void, onOpen: @escaping () -> Void, onReveal: @escaping () -> Void,
-         onRemove: @escaping () -> Void) {
+         onRemove: @escaping () -> Void, onDragEnded: @escaping () -> Void) {
         self.url = url
+        self.onDragEnded = onDragEnded
         self.isSelecting = isSelecting
         self.dragURLs = dragURLs
         self.onToggle = onToggle
@@ -129,6 +131,12 @@ final class ShelfItemView: NSView, NSDraggingSource {
         [.copy, .link, .generic]
     }
 
+    /// A drag that landed somewhere (a copy, a link or a move, not a cancel) tells the shelf the file has been taken out.
+    nonisolated func draggingSession(_ session: NSDraggingSession, endedAt screenPoint: NSPoint, operation: NSDragOperation) {
+        guard !operation.isEmpty else { return }
+        MainActor.assumeIsolated { onDragEnded() }
+    }
+
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
 }
 
@@ -149,6 +157,7 @@ final class ShelfPageView: NSView {
         let open: () -> Void
         let reveal: () -> Void
         let remove: () -> Void
+        let dragEnded: () -> Void
     }
 
     private let scroll = NSScrollView()
@@ -236,7 +245,7 @@ final class ShelfPageView: NSView {
             row.addArrangedSubview(ShelfItemView(name: entry.name, url: entry.url, isSelecting: selecting,
                                                  isSelected: entry.isSelected, dragURLs: entry.dragURLs,
                                                  onToggle: entry.toggle, onOpen: entry.open, onReveal: entry.reveal,
-                                                 onRemove: entry.remove))
+                                                 onRemove: entry.remove, onDragEnded: entry.dragEnded))
         }
         hint.isHidden = !entries.isEmpty
         scroll.isHidden = entries.isEmpty

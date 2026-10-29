@@ -23,6 +23,7 @@ enum L10n {
     static var filesCount: String { tr("Files: %d") }
     static var empty: String { tr("Empty") }
     static var showInFinder: String { tr("Show in Finder") }
+    static var removeAfterDrag: String { tr("Remove files from the shelf after dragging them out") }
     static var removeFromShelf: String { tr("Remove from shelf") }
     static var clearShelf: String { tr("Clear shelf") }
     static var all: String { tr("All") }

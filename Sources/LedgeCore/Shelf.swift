@@ -38,6 +38,14 @@ public struct ShelfList: Codable, Equatable, Sendable {
     public mutating func removeAll() { items = [] }
 }
 
+/// Decides whether a file the shelf still finds is really gone for the user: a link follows a file into the Trash.
+public enum ShelfFile {
+    public static func isGone(path: String?, exists: Bool) -> Bool {
+        guard let path, exists else { return true }
+        return path.split(separator: "/").contains(".Trash")
+    }
+}
+
 /// Which shelf items are ticked while the user is choosing several (like "Select" in a photo gallery).
 public struct ShelfSelection: Equatable, Sendable {
     public private(set) var isActive = false

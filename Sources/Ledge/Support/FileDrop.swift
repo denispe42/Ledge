@@ -32,3 +32,13 @@ enum ShelfBookmarks {
         return (url, stale ? make(for: url) : nil)
     }
 }
+
+/// Shelf preference: take a file off the shelf once it has been dragged out and dropped somewhere.
+enum ShelfSettings {
+    private static let key = "shelf.removeAfterDrag"
+
+    static var removeAfterDrag: Bool {
+        get { UserDefaults.standard.object(forKey: key) as? Bool ?? true }
+        set { UserDefaults.standard.set(newValue, forKey: key) }
+    }
+}

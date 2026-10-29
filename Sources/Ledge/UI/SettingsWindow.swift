@@ -61,6 +61,11 @@ final class SettingsModel: ObservableObject {
         set { IslandLookSetting.current = IslandLook.stored(newValue); objectWillChange.send() }
     }
 
+    var removeAfterDrag: Bool {
+        get { ShelfSettings.removeAfterDrag }
+        set { ShelfSettings.removeAfterDrag = newValue; objectWillChange.send() }
+    }
+
     var haptics: Bool {
         get { Haptics.isEnabled }
         set { Haptics.isEnabled = newValue; objectWillChange.send() }
@@ -89,6 +94,9 @@ private struct SettingsView: View {
                 }
                 Button(L10n.testSound) { model.previewSound() }
             }
+            Section(L10n.shelf) {
+                Toggle(L10n.removeAfterDrag, isOn: Binding(get: { model.removeAfterDrag }, set: { model.removeAfterDrag = $0 }))
+            }
             Section(L10n.general) {
                 Toggle(L10n.hideTimeInFullscreen,
                        isOn: Binding(get: { model.hideTimeInFullscreen }, set: { model.hideTimeInFullscreen = $0 }))
@@ -107,7 +115,7 @@ private struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 400, height: 580)
+        .frame(width: 400, height: 640)
     }
 }
 
